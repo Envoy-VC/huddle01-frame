@@ -13,7 +13,7 @@ const Home = () => {
         height='100'
       />
       <div tw='font-bold'>
-        Schedule Meetings on Farcaster Frames with Huddle01
+        Schedule Meetings on Huddle01 using Farcaster Frames
       </div>
     </div>
   );
