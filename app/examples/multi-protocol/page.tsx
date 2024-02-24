@@ -1,4 +1,4 @@
-import { ClientProtocolId } from "frames.js";
+import { ClientProtocolId } from 'frames.js';
 import {
   FrameButton,
   FrameContainer,
@@ -6,18 +6,18 @@ import {
   NextServerPageProps,
   getFrameMessage,
   getPreviousFrame,
-} from "frames.js/next/server";
-import { getXmtpFrameMessage, isXmtpFrameActionPayload } from "frames.js/xmtp";
-import { DEBUG_HUB_OPTIONS } from "../../debug/constants";
+} from 'frames.js/next/server';
+import { getXmtpFrameMessage, isXmtpFrameActionPayload } from 'frames.js/xmtp';
+import { DEBUG_HUB_OPTIONS } from '../../debug/constants';
 
 const acceptedProtocols: ClientProtocolId[] = [
   {
-    id: "xmtp",
-    version: "vNext",
+    id: 'xmtp',
+    version: 'vNext',
   },
   {
-    id: "farcaster",
-    version: "vNext",
+    id: 'farcaster',
+    version: 'vNext',
   },
 ];
 
@@ -55,21 +55,21 @@ export default async function Home({
   return (
     <div>
       <FrameContainer
-        pathname="/examples/multi-protocol"
-        postUrl="/examples/multi-protocol/frames"
+        pathname='/examples/multi-protocol'
+        postUrl='/examples/multi-protocol/frames'
         state={{}}
         previousFrame={previousFrame}
         accepts={acceptedProtocols}
       >
         <FrameImage>
-          <div tw="flex flex-col">
-            <div tw="flex">
+          <div tw='flex flex-col'>
+            <div tw='flex'>
               This frame gets the interactor&apos;s wallet address or FID
               depending on the client protocol.
             </div>
-            {fid && <div tw="flex">FID: {fid}</div>}
+            {fid && <div tw='flex'>FID: {fid}</div>}
             {walletAddress && (
-              <div tw="flex">Wallet Address: {walletAddress}</div>
+              <div tw='flex'>Wallet Address: {walletAddress}</div>
             )}
           </div>
         </FrameImage>

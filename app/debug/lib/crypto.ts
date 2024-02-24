@@ -1,4 +1,4 @@
-import * as ed from "@noble/ed25519";
+import * as ed from '@noble/ed25519';
 
 export function convertKeypairToHex({
   privateKeyBytes,
@@ -11,8 +11,8 @@ export function convertKeypairToHex({
   privateKey: string;
 } {
   return {
-    publicKey: "0x" + Buffer.from(publicKeyBytes).toString("hex"),
-    privateKey: "0x" + Buffer.from(privateKeyBytes).toString("hex"),
+    publicKey: '0x' + Buffer.from(publicKeyBytes).toString('hex'),
+    privateKey: '0x' + Buffer.from(privateKeyBytes).toString('hex'),
   };
 }
 

@@ -1,14 +1,16 @@
 {
-  "name": "framesjs-starter",
-  "version": "0.1.12",
+  "name": "huddle01-frame",
+  "version": "0.0.1",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "update-debugger": "npx degit github:framesjs/frames.js/examples/framesjs-starter/app/debug#main app/debug --force",
-    "update-framesjs": "yarn upgrade frames.js@latest && yarn run update-debugger"
+    "update-framesjs": "pnpm upgrade frames.js@latest && pnpm run update-debugger",
+    "format": "prettier . --write --cache"
   },
   "dependencies": {
     "@farcaster/core": "^0.14.0",
@@ -33,6 +35,8 @@
     "eslint": "^8.56.0",
     "eslint-config-next": "14.1.0",
     "postcss": "^8",
+    "prettier": "^3.2.5",
+    "prettier-plugin-tailwindcss": "^0.5.11",
     "tailwindcss": "^3.3.0",
     "typescript": "^5.3.3"
   }

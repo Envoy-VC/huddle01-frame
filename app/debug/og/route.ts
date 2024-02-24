@@ -1,11 +1,11 @@
-import { getFrame } from "frames.js";
-import { NextRequest, NextResponse } from "next/server";
+import { getFrame } from 'frames.js';
+import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(request: NextRequest): Promise<NextResponse> {
-  const url = request.nextUrl.searchParams.get("url");
+  const url = request.nextUrl.searchParams.get('url');
 
   if (!url) {
-    return NextResponse.json({ message: "Invalid URL" }, { status: 400 });
+    return NextResponse.json({ message: 'Invalid URL' }, { status: 400 });
   }
   try {
     const urlRes = await fetch(url);

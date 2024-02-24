@@ -1,7 +1,7 @@
-import { Frame, frameErrorKeys, getFrame, getFrameHtmlHead } from "frames.js";
-import { useEffect, useState } from "react";
-import { FrameRender } from "./frame-render";
-import React from "react";
+import { Frame, frameErrorKeys, getFrame, getFrameHtmlHead } from 'frames.js';
+import { useEffect, useState } from 'react';
+import { FrameRender } from './frame-render';
+import React from 'react';
 
 export function FrameDebugger({
   children,
@@ -25,30 +25,30 @@ export function FrameDebugger({
   }, [copySuccess, setCopySuccess]);
 
   return (
-    <div className="flex flex-col gap-4 items-start">
-      <div className="flex flex-row gap-4">
-        <div className="p-4 flex flex-col gap-4">
-          <span className="font-bold">Debugging frame at: {url}</span>
+    <div className='flex flex-col items-start gap-4'>
+      <div className='flex flex-row gap-4'>
+        <div className='flex flex-col gap-4 p-4'>
+          <span className='font-bold'>Debugging frame at: {url}</span>
           {children}
         </div>
-        <div className="p-4 h-full">
-          <h3 className="font-bold">Frame Validations</h3>
-          <div className="min-w-[400px]">
+        <div className='h-full p-4'>
+          <h3 className='font-bold'>Frame Validations</h3>
+          <div className='min-w-[400px]'>
             {framePerformanceInSeconds ? (
               <div
-                style={{ display: "flex", flexDirection: "row", gap: "8px" }}
+                style={{ display: 'flex', flexDirection: 'row', gap: '8px' }}
               >
                 <div>
-                  {" "}
+                  {' '}
                   {framePerformanceInSeconds > 5
-                    ? "🔴"
+                    ? '🔴'
                     : framePerformanceInSeconds > 4
-                      ? "🟠"
-                      : "🟢"}
+                      ? '🟠'
+                      : '🟢'}
                 </div>
-                <div className="text-slate-600">{"frame speed (seconds)"}</div>
+                <div className='text-slate-600'>{'frame speed (seconds)'}</div>
 
-                <div className="font-bold text-red-800">
+                <div className='font-bold text-red-800'>
                   {framePerformanceInSeconds > 5
                     ? `Request took more than 5s (${framePerformanceInSeconds} seconds). This may be normal: first request will take longer in development (as next.js builds), but in production, clients will timeout requests after 5s`
                     : framePerformanceInSeconds > 4
@@ -59,46 +59,46 @@ export function FrameDebugger({
             ) : null}
             {frameErrorKeys.map((key) => (
               <div
-                style={{ display: "flex", flexDirection: "row", gap: "8px" }}
+                style={{ display: 'flex', flexDirection: 'row', gap: '8px' }}
                 key={key}
               >
                 <div>
-                  {frameData?.errors?.[key] || !frameData?.frame ? "🔴" : "🟢"}
+                  {frameData?.errors?.[key] || !frameData?.frame ? '🔴' : '🟢'}
                 </div>
-                <div className="text-slate-600">{key}</div>
-                <div className="font-bold text-red-800">
-                  {" "}
-                  {frameData?.errors?.[key]?.join(",")}
+                <div className='text-slate-600'>{key}</div>
+                <div className='font-bold text-red-800'>
+                  {' '}
+                  {frameData?.errors?.[key]?.join(',')}
                 </div>
               </div>
             ))}
             <a
-              target="_blank"
-              className="underline text-slate-400 mt-2 block"
-              href="https://docs.farcaster.xyz/learn/what-is-farcaster/frames"
+              target='_blank'
+              className='mt-2 block text-slate-400 underline'
+              href='https://docs.farcaster.xyz/learn/what-is-farcaster/frames'
             >
               ↗ Farcaster Frames Spec
             </a>
           </div>
         </div>
       </div>
-      <div className="bg-slate-100 p-4 flex-1	">
-        <h3 className="font-bold">frames.js Frame object</h3>
+      <div className='flex-1 bg-slate-100 p-4	'>
+        <h3 className='font-bold'>frames.js Frame object</h3>
         <pre
-          id="json"
-          className="font-mono text-sm"
+          id='json'
+          className='font-mono text-sm'
           style={{
-            padding: "10px",
-            borderRadius: "4px",
+            padding: '10px',
+            borderRadius: '4px',
           }}
         >
           {JSON.stringify(frameData?.frame, null, 2)}
         </pre>
         {frameData?.frame ? (
-          <div className="py-4 flex-1">
-            <span className="font-bold mr-2">html tags</span>
+          <div className='flex-1 py-4'>
+            <span className='mr-2 font-bold'>html tags</span>
             <button
-              className="underline"
+              className='underline'
               onClick={() => {
                 // Copy the text inside the text field
                 navigator.clipboard.writeText(
@@ -107,17 +107,17 @@ export function FrameDebugger({
                 setCopySuccess(true);
               }}
             >
-              {copySuccess ? "✔︎ copied to clipboard" : "copy html tags"}
+              {copySuccess ? '✔︎ copied to clipboard' : 'copy html tags'}
             </button>
             <pre
-              id="html"
+              id='html'
               style={{
-                padding: "10px",
-                borderRadius: "4px",
+                padding: '10px',
+                borderRadius: '4px',
               }}
             >
               {getFrameHtmlHead(frameData?.frame)
-                .split("<meta")
+                .split('<meta')
                 .filter((t) => !!t)
                 // hacky...
                 .flatMap((el, i) => [

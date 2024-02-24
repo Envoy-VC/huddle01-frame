@@ -1,6 +1,6 @@
 export type FarcasterUser =
   | {
-      status: "approved" | "pending_approval";
+      status: 'approved' | 'pending_approval';
       signature: string;
       publicKey: string;
       privateKey: string;
@@ -10,7 +10,7 @@ export type FarcasterUser =
       fid?: number;
     }
   | {
-      status: "impersonating";
+      status: 'impersonating';
       fid: number;
       publicKey: string;
       privateKey: string;

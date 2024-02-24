@@ -1,5 +1,5 @@
-import { Frame } from "frames.js";
-import { useEffect, useState } from "react";
+import { Frame } from 'frames.js';
+import { useEffect, useState } from 'react';
 
 export type FrameRenderProps = {
   isLoggedIn: boolean;
@@ -17,32 +17,32 @@ export function FrameRender({
   submitOption,
   isLoggedIn,
 }: FrameRenderProps) {
-  const [inputText, setInputText] = useState("");
+  const [inputText, setInputText] = useState('');
   const [isWaiting, setIsWaiting] = useState(false);
 
   return (
-    <div style={{ width: "382px" }}>
+    <div style={{ width: '382px' }}>
       <img
         src={frame.image}
         title={
-          frame.image?.startsWith("data:")
+          frame.image?.startsWith('data:')
             ? `Frame image: ${Math.ceil(Buffer.from(frame.image).length / 1024)}kb`
-            : "No image"
+            : 'No image'
         }
         alt={
-          frame.image?.startsWith("data:")
+          frame.image?.startsWith('data:')
             ? `Frame image: ${Math.ceil(Buffer.from(frame.image).length / 1024)}kb`
-            : "No image"
+            : 'No image'
         }
-        style={{ borderRadius: "4px", border: "1px solid #ccc" }}
-        {...((frame.imageAspectRatio ?? "1.91:1") === "1:1"
+        style={{ borderRadius: '4px', border: '1px solid #ccc' }}
+        {...((frame.imageAspectRatio ?? '1.91:1') === '1:1'
           ? { width: 382, height: 382 }
           : { height: 200, width: 382 })}
       />
       {frame.inputText && (
         <input
-          className="w-full p-2 border mt-1 border-gray-400 rounded"
-          type="text"
+          className='mt-1 w-full rounded border border-gray-400 p-2'
+          type='text'
           placeholder={frame.inputText}
           value={inputText}
           onChange={(e) => setInputText(e.target.value)}
@@ -50,35 +50,35 @@ export function FrameRender({
       )}
       <div
         style={{
-          display: "flex",
-          flexDirection: "row",
-          marginTop: "4px",
-          gap: "4px",
+          display: 'flex',
+          flexDirection: 'row',
+          marginTop: '4px',
+          gap: '4px',
         }}
       >
         {frame.buttons?.map(({ label, action, target }, index: number) => (
           <button
-            type="button"
+            type='button'
             disabled={isWaiting}
-            className={`${isWaiting ? "bg-gray-100 hover:bg-gray-100" : "bg-gray-200 hover:bg-gray-300"} p-2 border-gray-400 border text-sm text-gray-800 rounded`}
+            className={`${isWaiting ? 'bg-gray-100 hover:bg-gray-100' : 'bg-gray-200 hover:bg-gray-300'} rounded border border-gray-400 p-2 text-sm text-gray-800`}
             style={{
-              flex: "1 1 0px",
-              cursor: isWaiting ? undefined : "pointer",
+              flex: '1 1 0px',
+              cursor: isWaiting ? undefined : 'pointer',
             }}
             onClick={async () => {
               if (!isLoggedIn) {
                 alert(
-                  "Choose an fid to impersonate or Sign in (costs warps) to use the frame buttons"
+                  'Choose an fid to impersonate or Sign in (costs warps) to use the frame buttons'
                 );
                 return;
               }
-              if (action === "link") {
+              if (action === 'link') {
                 if (
-                  window.confirm("You are about to be redirected to " + target!)
+                  window.confirm('You are about to be redirected to ' + target!)
                 ) {
                   window.location.href = target!;
                 }
-              } else if (action === "mint") {
+              } else if (action === 'mint') {
                 alert(`Requested to mint NFT: ${target}`);
               } else {
                 setIsWaiting(true);
@@ -88,9 +88,9 @@ export function FrameRender({
                     inputText:
                       frame.inputText !== undefined ? inputText : undefined,
                   });
-                  setInputText("");
+                  setInputText('');
                 } catch (err) {
-                  alert("error: check the console");
+                  alert('error: check the console');
                   console.error(err);
                 }
                 setIsWaiting(false);
@@ -98,9 +98,9 @@ export function FrameRender({
             }}
             key={index}
           >
-            {action === "mint" ? `⬗ ` : ""}
+            {action === 'mint' ? `⬗ ` : ''}
             {label}
-            {action === "post_redirect" || action === "link" ? ` ↗` : ""}
+            {action === 'post_redirect' || action === 'link' ? ` ↗` : ''}
           </button>
         ))}
       </div>

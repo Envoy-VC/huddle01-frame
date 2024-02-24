@@ -1,5 +1,5 @@
-import QRCode from "qrcode.react";
-import { FarcasterUser } from "../types/farcaster-user";
+import QRCode from 'qrcode.react';
+import { FarcasterUser } from '../types/farcaster-user';
 
 export const LoginWindow = ({
   farcasterUser,
@@ -16,34 +16,34 @@ export const LoginWindow = ({
 }) => {
   return (
     <div>
-      <div style={{ minWidth: "150px" }} className="mt-4">
+      <div style={{ minWidth: '150px' }} className='mt-4'>
         <div>
-          {farcasterUser?.status === "approved" ? (
+          {farcasterUser?.status === 'approved' ? (
             farcasterUser.fid ? (
               <div>
-                Signed in as {farcasterUser?.fid}{" "}
+                Signed in as {farcasterUser?.fid}{' '}
                 <button onClick={logout}>Logout</button>
               </div>
             ) : (
-              "Something is wrong..."
+              'Something is wrong...'
             )
-          ) : farcasterUser?.status === "impersonating" ? (
+          ) : farcasterUser?.status === 'impersonating' ? (
             <div>
-              Impersonating fid: <b>{farcasterUser?.fid}</b>,{" "}
-              <button className="underline" onClick={logout}>
+              Impersonating fid: <b>{farcasterUser?.fid}</b>,{' '}
+              <button className='underline' onClick={logout}>
                 Logout
               </button>
               <p>
-                <span className=" text-slate-400">
+                <span className=' text-slate-400'>
                   *Impersonation only works for testing local frames using
                   frames.js to validate messages, as they&apos;re mocked. It
                   uses the `cast.fid` of `1` and `cast.hash` value of
                   `0x00...00` as the frame context in payloads.
-                </span>{" "}
+                </span>{' '}
               </p>
             </div>
-          ) : farcasterUser?.status === "pending_approval" ? (
-            "Approve in Warpcast"
+          ) : farcasterUser?.status === 'pending_approval' ? (
+            'Approve in Warpcast'
           ) : (
             <h2>Sign in to test buttons</h2>
           )}
@@ -52,7 +52,7 @@ export const LoginWindow = ({
           {!farcasterUser?.status && (
             <div>
               <form
-                action=""
+                action=''
                 onSubmit={async (e: any) => {
                   e.preventDefault();
                   impersonateUser({ fid: 1 });
@@ -60,10 +60,10 @@ export const LoginWindow = ({
               >
                 <button
                   style={{
-                    cursor: loading ? "not-allowed" : "pointer",
+                    cursor: loading ? 'not-allowed' : 'pointer',
                   }}
-                  className="underline"
-                  type="submit"
+                  className='underline'
+                  type='submit'
                   disabled={loading}
                 >
                   Impersonate fid: 1
@@ -71,20 +71,20 @@ export const LoginWindow = ({
               </form>
               <div>or</div>
               <form
-                action=""
+                action=''
                 onSubmit={async (e: any) => {
                   e.preventDefault();
                   const { value: fid } = e.target[0] as HTMLInputElement;
                   impersonateUser({ fid: parseInt(fid) });
                 }}
               >
-                <input type="text" placeholder="FID to impersonate" />{" "}
+                <input type='text' placeholder='FID to impersonate' />{' '}
                 <button
                   style={{
-                    cursor: loading ? "not-allowed" : "pointer",
+                    cursor: loading ? 'not-allowed' : 'pointer',
                   }}
-                  className="underline"
-                  type="submit"
+                  className='underline'
+                  type='submit'
                   disabled={loading}
                 >
                   Impersonate
@@ -95,29 +95,29 @@ export const LoginWindow = ({
 
               <button
                 style={{
-                  cursor: loading ? "not-allowed" : "pointer",
+                  cursor: loading ? 'not-allowed' : 'pointer',
                 }}
-                className="underline"
+                className='underline'
                 onClick={startFarcasterSignerProcess}
                 disabled={loading}
               >
                 {loading
-                  ? "Loading..."
-                  : "Sign in with farcaster (costs warps once, works with remote frames and other libs)"}
+                  ? 'Loading...'
+                  : 'Sign in with farcaster (costs warps once, works with remote frames and other libs)'}
               </button>
             </div>
           )}
-          {farcasterUser?.status === "pending_approval" &&
+          {farcasterUser?.status === 'pending_approval' &&
             farcasterUser?.signerApprovalUrl && (
-              <div className="signer-approval-container mr-4">
+              <div className='signer-approval-container mr-4'>
                 Scan with your camera app
                 <QRCode value={farcasterUser.signerApprovalUrl} size={64} />
-                <div className="or-divider">OR</div>
+                <div className='or-divider'>OR</div>
                 <a
                   href={farcasterUser.signerApprovalUrl}
-                  target="_blank"
-                  className="underline"
-                  rel="noopener noreferrer"
+                  target='_blank'
+                  className='underline'
+                  rel='noopener noreferrer'
                 >
                   <button>open url</button>
                 </a>

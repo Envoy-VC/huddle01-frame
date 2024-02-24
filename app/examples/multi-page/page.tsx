@@ -6,8 +6,8 @@ import {
   NextServerPageProps,
   getPreviousFrame,
   useFramesReducer,
-} from "frames.js/next/server";
-import Link from "next/link";
+} from 'frames.js/next/server';
+import Link from 'next/link';
 
 type State = {
   pageIndex: number;
@@ -38,17 +38,17 @@ export default async function Home({
   // then, when done, return next frame
   return (
     <div>
-      Multi-page example <Link href="/debug">Debug</Link>
+      Multi-page example <Link href='/debug'>Debug</Link>
       <FrameContainer
-        pathname="/examples/multi-page"
-        postUrl="/examples/multi-page/frames"
+        pathname='/examples/multi-page'
+        postUrl='/examples/multi-page/frames'
         state={state}
         previousFrame={previousFrame}
       >
         <FrameImage>
-          <div tw="flex flex-col">
-            <img width={573} height={300} src={imageUrl} alt="Image" />
-            <div tw="flex">
+          <div tw='flex flex-col'>
+            <img width={573} height={300} src={imageUrl} alt='Image' />
+            <div tw='flex'>
               This is slide {state.pageIndex + 1} / {totalPages}
             </div>
           </div>

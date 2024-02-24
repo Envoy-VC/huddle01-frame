@@ -1,7 +1,7 @@
-import { NextRequest } from "next/server";
-import fs from "fs";
-import path from "path";
-import { sortedSearchParamsString } from "../../lib/utils";
+import { NextRequest } from 'next/server';
+import fs from 'fs';
+import path from 'path';
+import { sortedSearchParamsString } from '../../lib/utils';
 
 function getHubRequest(request: NextRequest, hubPath: string[]) {
   const { url, headers: originalHeaders, ...rest } = request;
@@ -14,21 +14,21 @@ function getHubRequest(request: NextRequest, hubPath: string[]) {
     newUrl.hostname = hubUrl.hostname;
     newUrl.port = hubUrl.port;
   } else {
-    newUrl.protocol = "https";
-    newUrl.hostname = "hub-api.neynar.com";
-    newUrl.port = "443";
+    newUrl.protocol = 'https';
+    newUrl.hostname = 'hub-api.neynar.com';
+    newUrl.port = '443';
   }
 
-  console.log("info: Mock hub: Forwarding message to", newUrl.toString());
+  console.log('info: Mock hub: Forwarding message to', newUrl.toString());
 
-  newUrl.pathname = hubPath.join("/");
+  newUrl.pathname = hubPath.join('/');
 
   const headers = new Headers({
-    api_key: "NEYNAR_FRAMES_JS",
+    api_key: 'NEYNAR_FRAMES_JS',
     ...originalHeaders,
   });
-  headers.delete("host");
-  headers.delete("referer");
+  headers.delete('host');
+  headers.delete('referer');
 
   const hubRequest = new Request(newUrl, {
     headers,
@@ -50,20 +50,20 @@ export async function GET(
 
   try {
     // Only available in local development
-    const file = path.join(process.cwd(), "app", "debug", "mocks.json");
-    const json = fs.readFileSync(file, "utf-8");
+    const file = path.join(process.cwd(), 'app', 'debug', 'mocks.json');
+    const json = fs.readFileSync(file, 'utf-8');
     const mocks = JSON.parse(json);
     const searchParams = new URL(request.url).searchParams;
-    const pathAndQuery = `/${hubPath.join("/")}?${sortedSearchParamsString(searchParams)}`;
+    const pathAndQuery = `/${hubPath.join('/')}?${sortedSearchParamsString(searchParams)}`;
 
     const mockResult: { ok: boolean | undefined } = mocks[pathAndQuery];
     if (mockResult.ok !== undefined) {
       console.log(
-        `info: Mock hub: Found mock for ${pathAndQuery}, returning ${mockResult.ok ? "200" : "404"}`
+        `info: Mock hub: Found mock for ${pathAndQuery}, returning ${mockResult.ok ? '200' : '404'}`
       );
       return new Response(JSON.stringify(mocks[pathAndQuery]), {
         headers: {
-          "content-type": "application/json",
+          'content-type': 'application/json',
         },
         status: mockResult.ok ? 200 : 404,
       });
@@ -71,7 +71,7 @@ export async function GET(
   } catch (error) {}
 
   console.warn(
-    `info: Mock hub: Forwarding message ${hubPath.join("/")} to a real hub`
+    `info: Mock hub: Forwarding message ${hubPath.join('/')} to a real hub`
   );
 
   const hubRequest = getHubRequest(request, hubPath);
@@ -84,7 +84,7 @@ export async function POST(
   { params: { hubPath } }: { params: { hubPath: string[] } }
 ) {
   console.warn(
-    `info: Mock hub: Forwarding message ${hubPath.join("/")} to a real hub`
+    `info: Mock hub: Forwarding message ${hubPath.join('/')} to a real hub`
   );
 
   const hubRequest = getHubRequest(request, hubPath);

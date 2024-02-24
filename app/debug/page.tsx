@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import { FrameActionHubContext, FrameActionPayload, getFrame } from "frames.js";
-import { useEffect, useState } from "react";
-import useSWR from "swr";
-import { LoginWindow } from "./components/create-signer";
-import { FrameRender } from "./components/frame-render";
-import { useFarcasterIdentity } from "./hooks/use-farcaster-identity";
-import { createFrameActionMessageWithSignerKey } from "./lib/farcaster";
-import { FrameDebugger } from "./components/frame-debugger";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { MockHubConfig } from "./components/mock-hub-config";
+import { FrameActionHubContext, FrameActionPayload, getFrame } from 'frames.js';
+import { useEffect, useState } from 'react';
+import useSWR from 'swr';
+import { LoginWindow } from './components/create-signer';
+import { FrameRender } from './components/frame-render';
+import { useFarcasterIdentity } from './hooks/use-farcaster-identity';
+import { createFrameActionMessageWithSignerKey } from './lib/farcaster';
+import { FrameDebugger } from './components/frame-debugger';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { MockHubConfig } from './components/mock-hub-config';
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
@@ -29,7 +29,7 @@ export default function Page({
   const router = useRouter();
   const url = searchParams.url;
   const [urlInput, setUrlInput] = useState(
-    url || process.env.NEXT_PUBLIC_HOST || "http://localhost:3000"
+    url || process.env.NEXT_PUBLIC_HOST || 'http://localhost:3000'
   );
 
   const [currentFrame, setCurrentFrame] = useState<
@@ -80,7 +80,7 @@ export default function Page({
     const castId = {
       fid: 1,
       hash: new Uint8Array(
-        Buffer.from("0000000000000000000000000000000000000000", "hex")
+        Buffer.from('0000000000000000000000000000000000000000', 'hex')
       ),
     };
 
@@ -95,11 +95,11 @@ export default function Page({
       });
 
     if (!message) {
-      throw new Error("hub error");
+      throw new Error('hub error');
     }
 
     const searchParams = new URLSearchParams({
-      postType: button?.action || "post",
+      postType: button?.action || 'post',
       /** https://docs.farcaster.xyz/reference/frames/spec#handling-clicks
 
         POST the packet to fc:frame:button:$idx:action:target if present
@@ -114,21 +114,21 @@ export default function Page({
     const response = await fetch(
       `/debug/frame-action?${searchParams.toString()}`,
       {
-        method: "POST",
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           untrustedData: {
             fid: farcasterUser.fid,
             url: url,
-            messageHash: `0x${Buffer.from(message.hash).toString("hex")}`,
+            messageHash: `0x${Buffer.from(message.hash).toString('hex')}`,
             timestamp: message.data.timestamp,
             network: 1,
             buttonIndex: Number(message.data.frameActionBody.buttonIndex),
             castId: {
               fid: castId.fid,
-              hash: `0x${Buffer.from(castId.hash).toString("hex")}`,
+              hash: `0x${Buffer.from(castId.hash).toString('hex')}`,
             },
             inputText,
           },
@@ -136,7 +136,7 @@ export default function Page({
             messageBytes: trustedBytes,
           },
           mockData:
-            process.env.NODE_ENV === "development" ? mockHubContext : undefined,
+            process.env.NODE_ENV === 'development' ? mockHubContext : undefined,
         } as FrameActionPayload & { mockData: Partial<FrameActionHubContext> }),
       }
     );
@@ -149,7 +149,7 @@ export default function Page({
 
     if (response.status === 302) {
       const location = dataRes.location;
-      if (window.confirm("You are about to be redirected to " + location!)) {
+      if (window.confirm('You are about to be redirected to ' + location!)) {
         window.location.href = location!;
       }
       return;
@@ -163,58 +163,58 @@ export default function Page({
   if (url && !currentFrame?.frame)
     return (
       <div>
-        Something is wrong, couldn&apos;t fetch frame from {url}...{" "}
-        {!(url.startsWith("http://") || url.startsWith("https://"))
-          ? "URL must start with http:// or https://"
-          : ""}{" "}
-        <Link href="/debug" className="underline block">
+        Something is wrong, couldn&apos;t fetch frame from {url}...{' '}
+        {!(url.startsWith('http://') || url.startsWith('https://'))
+          ? 'URL must start with http:// or https://'
+          : ''}{' '}
+        <Link href='/debug' className='block underline'>
           Go back
         </Link>
       </div>
     );
 
-  const baseUrl = process.env.NEXT_PUBLIC_HOST || "http://localhost:3000";
+  const baseUrl = process.env.NEXT_PUBLIC_HOST || 'http://localhost:3000';
 
   return (
-    <div className="">
-      <div className="">
-        <div className="bg-slate-100 mb-4 p-4">
-          <div className="flex flex-row gap-4 items-center">
-            <h2 className="font-bold">Frames.js debugger</h2>
+    <div className=''>
+      <div className=''>
+        <div className='mb-4 bg-slate-100 p-4'>
+          <div className='flex flex-row items-center gap-4'>
+            <h2 className='font-bold'>Frames.js debugger</h2>
             <form
-              className="flex flex-row"
+              className='flex flex-row'
               onSubmit={(e) => {
                 e.preventDefault();
-                console.log("urlInput", urlInput);
+                console.log('urlInput', urlInput);
                 if (
                   !(
-                    urlInput.startsWith("http://") ||
-                    urlInput.startsWith("https://")
+                    urlInput.startsWith('http://') ||
+                    urlInput.startsWith('https://')
                   )
                 ) {
-                  alert("URL must start with http:// or https://");
+                  alert('URL must start with http:// or https://');
                   return;
                 }
                 router.push(`?url=${encodeURIComponent(urlInput)}`);
               }}
             >
               <input
-                type="text"
-                name="url"
-                className="w-[400px] px-2 py-1 border border-gray-400 rounded-l"
+                type='text'
+                name='url'
+                className='w-[400px] rounded-l border border-gray-400 px-2 py-1'
                 value={urlInput}
                 onChange={(e) => {
                   setUrlInput(e.target.value);
                 }}
-                placeholder="Enter URL"
+                placeholder='Enter URL'
               />
-              <button className="bg-blue-500 text-white p-2 py-1 rounded-r">
+              <button className='rounded-r bg-blue-500 p-2 py-1 text-white'>
                 Debug
               </button>
             </form>
-            <span className="ml-4">Examples:</span>
+            <span className='ml-4'>Examples:</span>
             <button
-              className="underline"
+              className='underline'
               onClick={(e) => {
                 e.preventDefault();
                 router.push(`?url=${baseUrl}`);
@@ -223,7 +223,7 @@ export default function Page({
               Home
             </button>
             <button
-              className="underline"
+              className='underline'
               onClick={(e) => {
                 e.preventDefault();
                 router.push(`?url=${baseUrl}/examples/user-data`);
@@ -232,7 +232,7 @@ export default function Page({
               User data
             </button>
             <button
-              className="underline"
+              className='underline'
               onClick={(e) => {
                 e.preventDefault();
                 router.push(`?url=${baseUrl}/examples/multi-page`);
@@ -241,7 +241,7 @@ export default function Page({
               Multi-page
             </button>
             <button
-              className="underline"
+              className='underline'
               onClick={(e) => {
                 e.preventDefault();
                 router.push(`?url=${baseUrl}/examples/mint-button`);
@@ -250,7 +250,7 @@ export default function Page({
               Mint button
             </button>
             <button
-              className="underline"
+              className='underline'
               onClick={(e) => {
                 e.preventDefault();
                 router.push(`?url=${baseUrl}/examples/multi-protocol`);
@@ -281,8 +281,8 @@ export default function Page({
                   submitOption={submitOption}
                   isLoggedIn={!!farcasterUser?.fid}
                 />
-                <div className="mt-4">
-                  <h3 className="font-bold">Mock Hub State</h3>
+                <div className='mt-4'>
+                  <h3 className='font-bold'>Mock Hub State</h3>
                   <MockHubConfig
                     hubContext={mockHubContext}
                     setHubContext={setMockHubContext}

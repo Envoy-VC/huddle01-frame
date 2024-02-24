@@ -5,7 +5,7 @@ import {
   FarcasterNetwork,
   Message,
   FrameActionBody,
-} from "@farcaster/core";
+} from '@farcaster/core';
 
 export async function createFrameActionMessageWithSignerKey(
   signerKey: string,
@@ -23,7 +23,7 @@ export async function createFrameActionMessageWithSignerKey(
     castId: CastId;
   }
 ) {
-  const signer = new NobleEd25519Signer(Buffer.from(signerKey.slice(2), "hex"));
+  const signer = new NobleEd25519Signer(Buffer.from(signerKey.slice(2), 'hex'));
 
   const messageDataOptions = {
     fid,
@@ -47,7 +47,7 @@ export async function createFrameActionMessageWithSignerKey(
 
   const trustedBytes = Buffer.from(
     Message.encode(message._unsafeUnwrap()).finish()
-  ).toString("hex");
+  ).toString('hex');
 
   return { message: message.unwrapOr(null), trustedBytes: trustedBytes };
 }

@@ -1,10 +1,10 @@
-import { NextRequest } from "next/server";
+import { NextRequest } from 'next/server';
 import {
   Message,
   FarcasterNetwork,
   HubError,
   ValidationResponse,
-} from "@farcaster/core";
+} from '@farcaster/core';
 
 // References:
 // https://github.com/farcasterxyz/hub-monorepo/blob/main/apps/hubble/src/rpc/httpServer.ts#L577
@@ -14,21 +14,21 @@ import {
 /** Mocks the Hub /v1/validateMessage endpoint and skips parts that require a valid signer */
 export async function POST(request: NextRequest) {
   console.warn(
-    "info: Mock hub: Validating message without verifying signature. This should only be used in development"
+    'info: Mock hub: Validating message without verifying signature. This should only be used in development'
   );
 
-  const contentType = request.headers.get("content-type") as string;
+  const contentType = request.headers.get('content-type') as string;
   let message;
 
-  if (contentType === "application/octet-stream") {
+  if (contentType === 'application/octet-stream') {
     // The Posted Body is a serialized Message protobuf
     const reader = request.body?.getReader();
     const bytes = await reader?.read();
     if (!bytes || !bytes.value) {
       return err(
         new HubError(
-          "bad_request.validation_failure",
-          "Could not parse Message. This API accepts only Message protobufs encoded into bytes (application/octet-stream)"
+          'bad_request.validation_failure',
+          'Could not parse Message. This API accepts only Message protobufs encoded into bytes (application/octet-stream)'
         )
       );
     }
@@ -36,7 +36,7 @@ export async function POST(request: NextRequest) {
   } else {
     return err(
       new HubError(
-        "bad_request.validation_failure",
+        'bad_request.validation_failure',
         `Unsupported Media Type. Content-Type ${contentType} is not supported`
       )
     );
@@ -45,7 +45,7 @@ export async function POST(request: NextRequest) {
   // 1. Ensure message data is present
   if (!message || !message.data) {
     return err(
-      new HubError("bad_request.validation_failure", "message data is missing")
+      new HubError('bad_request.validation_failure', 'message data is missing')
     );
   }
 
@@ -59,7 +59,7 @@ export async function POST(request: NextRequest) {
   ) {
     return err(
       new HubError(
-        "bad_request.validation_failure",
+        'bad_request.validation_failure',
         `incorrect network: ${message.data.network} (expected: ${FarcasterNetwork.MAINNET} or ${FarcasterNetwork.TESTNET} or ${FarcasterNetwork.DEVNET})`
       )
     );
@@ -71,7 +71,7 @@ export async function POST(request: NextRequest) {
   // Check if signer is present
   if (!message.signer) {
     return err(
-      new HubError("bad_request.validation_failure", "signer is missing")
+      new HubError('bad_request.validation_failure', 'signer is missing')
     );
   }
 
