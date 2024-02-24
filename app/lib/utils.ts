@@ -1,8 +1,9 @@
 import { fetchQuery } from '@airstack/airstack-react';
 import { API } from '@huddle01/server-sdk/api';
 
-import { AirstackResponse, FarcasterSocial } from '../types';
+import { AirstackResponse, FarcasterSocial, PAGE } from '../types';
 import { ETH_ADDRESS, HUDDLE01_API_KEY } from './config';
+import { FrameButton } from 'frames.js/next/server';
 
 export const getUserDetails = async (address: string) => {
   const query = `

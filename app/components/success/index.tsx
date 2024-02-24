@@ -5,7 +5,7 @@ const SuccessPage = () => {
   return (
     <div
       tw='flex flex-col items-center justify-center w-full h-full'
-      style={{ gap: '1rem' }}
+      style={{ gap: '2rem' }}
     >
       <img
         src={`${process.env.NEXT_PUBLIC_HOST}/huddle01-logo.png `}

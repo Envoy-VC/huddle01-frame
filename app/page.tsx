@@ -1,8 +1,10 @@
+import React from 'react';
+
 import {
   FrameButton,
   FrameContainer,
-  FrameImage,
   FrameInput,
+  FrameImage,
   NextServerPageProps,
   getFrameMessage,
   getPreviousFrame,
@@ -15,6 +17,7 @@ import { DEBUG_HUB_OPTIONS } from './debug/constants';
 import { createMeeting, getUserDetails } from './lib/utils';
 import { AIRSTACK_API_KEY, ETH_ADDRESS } from './lib/config';
 import { reducer } from './lib/reducer';
+import { getButtons } from './lib/buttons';
 
 import { FarcasterSocial, State, PAGE } from './types';
 import {
@@ -89,28 +92,9 @@ export default async function Page({ searchParams }: NextServerPageProps) {
           {state.page === PAGE.SUCCESS && <SuccessPage />}
         </div>
       </FrameImage>
-      {state.page === PAGE.HOME ? (
-        <FrameButton>⚡ Get Started</FrameButton>
-      ) : null}
+      {getButtons(state.page)}
       {state.page === PAGE.DATE_SELECT ? (
         <FrameInput text='12/03/2024 15:30-16:00' />
-      ) : null}
-      {state.page === PAGE.DATE_SELECT ? (
-        <FrameButton>← Go Back</FrameButton>
-      ) : null}
-      {state.page === PAGE.DATE_SELECT ? (
-        <FrameButton>⚡ Schedule Meeting</FrameButton>
-      ) : null}
-
-      {state.page === PAGE.ERROR ? <FrameButton>← Go Back</FrameButton> : null}
-      {state.page === PAGE.CONFIRM ? (
-        <FrameButton>← Go Back</FrameButton>
-      ) : null}
-      {state.page === PAGE.CONFIRM ? (
-        <FrameButton>✅ Confirm</FrameButton>
-      ) : null}
-      {state.page === PAGE.SUCCESS ? (
-        <FrameButton>← Go Back</FrameButton>
       ) : null}
       {state.page === PAGE.SUCCESS ? (
         <FrameButton
