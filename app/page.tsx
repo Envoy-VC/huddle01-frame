@@ -3,36 +3,35 @@ import {
   FrameContainer,
   FrameImage,
   FrameInput,
-  FrameReducer,
   NextServerPageProps,
   getFrameMessage,
   getPreviousFrame,
   useFramesReducer,
 } from 'frames.js/next/server';
-import Link from 'next/link';
+import { init } from '@airstack/airstack-react';
+
 import { DEBUG_HUB_OPTIONS } from './debug/constants';
 
-type State = {
-  active: string;
-  total_button_presses: number;
+import { createMeeting, getUserDetails } from './lib/utils';
+import { AIRSTACK_API_KEY, ETH_ADDRESS } from './lib/config';
+import { reducer } from './lib/reducer';
+
+import { FarcasterSocial, State, PAGE } from './types';
+import {
+  ConfirmDetails,
+  DateSelect,
+  ErrorPage,
+  Home,
+  SuccessPage,
+} from './components';
+
+const initialState: State = {
+  page: PAGE.HOME,
+  date: null,
+  error: null,
 };
 
-const initialState = { active: '1', total_button_presses: 0 };
-
-const reducer: FrameReducer<State> = (state, action) => {
-  return {
-    total_button_presses: state.total_button_presses + 1,
-    active: action.postBody?.untrustedData.buttonIndex
-      ? String(action.postBody?.untrustedData.buttonIndex)
-      : '1',
-  };
-};
-
-// This is a react server component only
-export default async function Home({
-  params,
-  searchParams,
-}: NextServerPageProps) {
+export default async function Page({ searchParams }: NextServerPageProps) {
   const previousFrame = getPreviousFrame<State>(searchParams);
 
   const frameMessage = await getFrameMessage(previousFrame.postBody, {
@@ -43,75 +42,84 @@ export default async function Home({
     throw new Error('Invalid frame payload');
   }
 
-  const [state, dispatch] = useFramesReducer<State>(
-    reducer,
-    initialState,
-    previousFrame
-  );
+  init(AIRSTACK_API_KEY, {
+    env: 'prod',
+    cache: true,
+  });
 
-  // Here: do a server side side effect either sync or async (using await), such as minting an NFT if you want.
-  // example: load the users credentials & check they have an NFT
+  const [state] = useFramesReducer<State>(reducer, initialState, previousFrame);
 
-  console.log('info: state is:', state);
+  let owner: FarcasterSocial | null = null;
+  let meetingLink: string | null = null;
 
-  const baseUrl = process.env.NEXT_PUBLIC_HOST || 'http://localhost:3000';
+  if (state.page >= PAGE.DATE_SELECT) {
+    owner = (await getUserDetails(ETH_ADDRESS)).Wallet.socials[0] ?? null;
+  }
 
-  // then, when done, return next frame
+  if (state.page == PAGE.SUCCESS) {
+    owner = (await getUserDetails(ETH_ADDRESS)).Wallet.socials[0] ?? null;
+    const user = frameMessage?.requesterUserData;
+    const startDate = state.date?.at(0)!;
+    const endDate = state.date?.at(1)!;
+
+    const data = await createMeeting(
+      startDate,
+      endDate,
+      user?.username ?? user?.displayName ?? ''
+    );
+
+    meetingLink = data.meetingLink ?? `https://app.huddle01.com/${data.roomId}`;
+  }
+
   return (
-    <div className='p-4'>
-      frames.js starter kit. The Template Frame is on this page, it&apos;s in
-      the html meta tags (inspect source).{' '}
-      <Link href={`/debug?url=${baseUrl}`} className='underline'>
-        Debug
-      </Link>
-      <FrameContainer
-        postUrl='/frames'
-        pathname='/'
-        state={state}
-        previousFrame={previousFrame}
-      >
-        {/* <FrameImage src="https://framesjs.org/og.png" /> */}
-        <FrameImage aspectRatio='1.91:1'>
-          <div tw='w-full h-full bg-slate-700 text-white justify-center items-center flex flex-col'>
-            <div tw='flex flex-row'>
-              {frameMessage?.inputText ? frameMessage.inputText : 'Hello world'}
-            </div>
-            {frameMessage && (
-              <div tw='flex flex-col'>
-                <div tw='flex'>
-                  Requester is @{frameMessage.requesterUserData?.username}{' '}
-                </div>
-                <div tw='flex'>
-                  Requester follows caster:{' '}
-                  {frameMessage.requesterFollowsCaster ? 'true' : 'false'}
-                </div>
-                <div tw='flex'>
-                  Caster follows requester:{' '}
-                  {frameMessage.casterFollowsRequester ? 'true' : 'false'}
-                </div>
-                <div tw='flex'>
-                  Requester liked cast:{' '}
-                  {frameMessage.likedCast ? 'true' : 'false'}
-                </div>
-                <div tw='flex'>
-                  Requester recasted cast:{' '}
-                  {frameMessage.recastedCast ? 'true' : 'false'}
-                </div>
-              </div>
-            )}
-          </div>
-        </FrameImage>
-        <FrameInput text='put some text here' />
-        <FrameButton>
-          {state?.active === '1' ? 'Active' : 'Inactive'}
+    <FrameContainer
+      postUrl='/frames'
+      pathname='/'
+      state={state}
+      previousFrame={previousFrame}
+    >
+      <FrameImage aspectRatio='1.91:1'>
+        <div tw='w-full h-full bg-white text-neutral-700 flex items-start font-sans'>
+          {state.page === PAGE.HOME && <Home />}
+          {state.page === PAGE.DATE_SELECT && <DateSelect owner={owner} />}
+          {state.page === PAGE.CONFIRM && (
+            <ConfirmDetails state={state} owner={owner} />
+          )}
+          {state.page === PAGE.ERROR && <ErrorPage state={state} />}
+          {state.page === PAGE.SUCCESS && <SuccessPage />}
+        </div>
+      </FrameImage>
+      {state.page === PAGE.HOME ? (
+        <FrameButton>⚡ Get Started</FrameButton>
+      ) : null}
+      {state.page === PAGE.DATE_SELECT ? (
+        <FrameInput text='12/03/2024 15:30-16:00' />
+      ) : null}
+      {state.page === PAGE.DATE_SELECT ? (
+        <FrameButton>← Go Back</FrameButton>
+      ) : null}
+      {state.page === PAGE.DATE_SELECT ? (
+        <FrameButton>⚡ Schedule Meeting</FrameButton>
+      ) : null}
+
+      {state.page === PAGE.ERROR ? <FrameButton>← Go Back</FrameButton> : null}
+      {state.page === PAGE.CONFIRM ? (
+        <FrameButton>← Go Back</FrameButton>
+      ) : null}
+      {state.page === PAGE.CONFIRM ? (
+        <FrameButton>✅ Confirm</FrameButton>
+      ) : null}
+      {state.page === PAGE.SUCCESS ? (
+        <FrameButton>← Go Back</FrameButton>
+      ) : null}
+      {state.page === PAGE.SUCCESS ? (
+        <FrameButton
+          action='link'
+          target={meetingLink ?? 'https://app.huddle01.com'}
+        >
+          Link
         </FrameButton>
-        <FrameButton>
-          {state?.active === '2' ? 'Active' : 'Inactive'}
-        </FrameButton>
-        <FrameButton action='link' target={`https://www.google.com`}>
-          External
-        </FrameButton>
-      </FrameContainer>
-    </div>
+      ) : null}
+    </FrameContainer>
   );
 }
