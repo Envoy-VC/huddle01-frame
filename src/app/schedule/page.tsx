@@ -29,7 +29,7 @@ import {
   ErrorPage,
   Home,
   SuccessPage,
-} from '~/app/[id]/components';
+} from '~/app/schedule/components';
 
 const initialState: State = {
   page: PAGE.HOME,
@@ -80,7 +80,7 @@ export default async function Page({ searchParams }: NextServerPageProps) {
   return (
     <FrameContainer
       postUrl='/frames'
-      pathname='/'
+      pathname='/schedule'
       state={state}
       previousFrame={previousFrame}
     >
