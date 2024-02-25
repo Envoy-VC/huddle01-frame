@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React from 'react';
 
 import type { FarcasterSocial } from '~/types';
@@ -16,7 +17,7 @@ const DateSelect = ({ owner }: Props) => {
         tw='flex flex-col justify-center items-center'
         style={{ gap: '1rem' }}
       >
-        <div tw='text-5xl font-neutral-800'>
+        <div tw='text-5xl text-neutral-800'>
           Enter a date and time for your meeting
         </div>
         <div tw='flex flex-row w-full justify-center' style={{ gap: '1rem' }}>
