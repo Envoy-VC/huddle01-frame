@@ -1,35 +1,41 @@
 {
-  "$schema": "https://json.schemastore.org/tsconfig",
-  "display": "Default",
   "compilerOptions": {
-    "declaration": true,
-    "declarationMap": true,
+    /* Base Options: */
     "esModuleInterop": true,
-    "incremental": false,
-    "isolatedModules": true,
-    "lib": ["es2022", "DOM", "DOM.Iterable"],
-    "module": "ESNext",
-    "moduleDetection": "force",
-    "moduleResolution": "Bundler",
-    "noEmit": true,
-    "noUncheckedIndexedAccess": true,
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
-    "jsx": "preserve",
-    "resolveJsonModule": true,
     "skipLibCheck": true,
+    "target": "es2022",
+    "allowJs": true,
+    "resolveJsonModule": true,
+    "moduleDetection": "force",
+    "isolatedModules": true,
+
+    /* Strictness */
     "strict": true,
-    "target": "ES2022",
-    "allowJs": true
+    "noUncheckedIndexedAccess": true,
+    "checkJs": true,
+
+    /* Bundled projects */
+    "lib": ["dom", "dom.iterable", "ES2022"],
+    "noEmit": true,
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "jsx": "preserve",
+    "plugins": [{ "name": "next" }],
+    "incremental": true,
+
+    /* Path Aliases */
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["./src/*"]
+    }
   },
   "include": [
+    ".eslintrc.cjs",
     "next-env.d.ts",
-    "next.config.js",
     "**/*.ts",
     "**/*.tsx",
+    "**/*.cjs",
+    "**/*.js",
     ".next/types/**/*.ts"
   ],
   "exclude": ["node_modules"]

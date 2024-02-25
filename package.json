@@ -1,46 +1,51 @@
 {
   "name": "huddle01-frame",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "dev": "next dev",
     "lint": "next lint",
+    "start": "next start",
     "update-debugger": "npx degit github:framesjs/frames.js/examples/framesjs-starter/app/debug#main app/debug --force",
     "update-framesjs": "pnpm upgrade frames.js@latest && pnpm run update-debugger",
     "format": "prettier . --write --cache"
   },
   "dependencies": {
     "@airstack/airstack-react": "^0.6.2",
-    "@farcaster/core": "^0.14.0",
+    "@farcaster/core": "^0.14.3",
     "@huddle01/server-sdk": "^2.0.5",
     "@noble/ed25519": "^2.0.0",
-    "@xmtp/frames-validator": "^0.5.0",
-    "frames.js": "^0.5.2",
-    "next": "14.1.0",
+    "@t3-oss/env-nextjs": "^0.9.2",
+    "@xmtp/frames-validator": "^0.5.1",
+    "frames.js": "^0.5.3",
+    "next": "^14.1.0",
     "qrcode.react": "^3.1.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
     "satori": "^0.10.13",
-    "swr": "^2.2.4",
-    "viem": "^2.7.13"
-  },
-  "engines": {
-    "node": ">=18.17.0"
+    "swr": "^2.2.5",
+    "viem": "^2.7.14",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
-    "@types/node": "^18.17.0",
-    "@types/react": "^18.2.0",
-    "@types/react-dom": "^18.2.0",
-    "autoprefixer": "^10.0.1",
+    "@types/eslint": "^8.56.2",
+    "@types/node": "^20.11.20",
+    "@types/react": "^18.2.57",
+    "@types/react-dom": "^18.2.19",
+    "@typescript-eslint/eslint-plugin": "^7.0.2",
+    "@typescript-eslint/parser": "^7.0.2",
     "eslint": "^8.56.0",
-    "eslint-config-next": "14.1.0",
-    "postcss": "^8",
+    "eslint-config-next": "^14.1.0",
+    "postcss": "^8.4.34",
     "prettier": "^3.2.5",
     "prettier-plugin-tailwindcss": "^0.5.11",
-    "tailwindcss": "^3.3.0",
+    "tailwindcss": "^3.4.1",
     "typescript": "^5.3.3"
-  }
+  },
+  "ct3aMetadata": {
+    "initVersion": "7.27.0"
+  },
+  "packageManager": "pnpm@8.12.1"
 }

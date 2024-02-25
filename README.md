@@ -1,40 +1,29 @@
-# Frames.js Starter Kit
+# Create T3 App
 
-This is a boilerplate repo to get started quickly with `frames.js`
+This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
 
-## Quickstart
+## What's next? How do I make an app with this?
 
-If running from the frames.js repository itself:
+We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
 
-- Run `yarn` from the repository root
-- Run `cd examples/framesjs-starter`
+If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
 
-1. Install dependencies `yarn install`
+- [Next.js](https://nextjs.org)
+- [NextAuth.js](https://next-auth.js.org)
+- [Prisma](https://prisma.io)
+- [Drizzle](https://orm.drizzle.team)
+- [Tailwind CSS](https://tailwindcss.com)
+- [tRPC](https://trpc.io)
 
-2. Run the dev server `yarn dev`
+## Learn More
 
-3. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
 
-4. Edit `app/page.tsx`
+- [Documentation](https://create.t3.gg/)
+- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
 
-5. Visit [http://localhost:3000/debug](http://localhost:3000/debug) to debug your frame.
+You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
 
-6. (Optional) To use a real signer (costs warps), copy `.env.sample` to `.env` and fill in the env variables following the comments provided
+## How do I deploy this?
 
-## Docs, Questions and Help
-
-- [Frames.js Documentation](https://framesjs.org)
-- [Awesome frames](https://github.com/davidfurlong/awesome-frames?tab=readme-ov-file)
-- Join the [/frames-dev](https://warpcast.com/~/channel/frames-devs) channel on Farcaster to ask questions
-
-## If you get stuck or have feedback, [Message @df please!](https://warpcast.com/df)
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy
-
-```bash
-vercel
-```
-
-more deployment links coming soon, PRs welcome!
+Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.

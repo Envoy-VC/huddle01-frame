@@ -1,0 +1,14 @@
+{
+  "/v1/linkById?fid=343&link_type=follow&target_fid=1": {
+    "ok": false
+  },
+  "/v1/linkById?fid=1&link_type=follow&target_fid=343": {
+    "ok": false
+  },
+  "/v1/reactionById?fid=343&reaction_type=1&target_fid=1&target_hash=0x0000000000000000000000000000000000000000": {
+    "ok": false
+  },
+  "/v1/reactionById?fid=343&reaction_type=2&target_fid=1&target_hash=0x0000000000000000000000000000000000000000": {
+    "ok": false
+  }
+}
