@@ -44,7 +44,7 @@ export const reducer: FrameReducer<State> = (state, action) => {
   } else if (page === PAGE.CONFIRM) {
     return {
       page: buttonIndex === 1 ? PAGE.DATE_SELECT : PAGE.SUCCESS,
-      date: null,
+      date: state.date,
       error: null,
     };
   } else if (page === PAGE.ERROR) {
@@ -56,7 +56,7 @@ export const reducer: FrameReducer<State> = (state, action) => {
   } else if (page === PAGE.SUCCESS) {
     return {
       page: PAGE.HOME,
-      date: null,
+      date: state.date,
       error: null,
     };
   } else {
