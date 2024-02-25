@@ -29,7 +29,7 @@ import {
   ErrorPage,
   Home,
   SuccessPage,
-} from '~/app/schedule/components';
+} from '~/app/[id]/components';
 
 const initialState: State = {
   page: PAGE.HOME,
