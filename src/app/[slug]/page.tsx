@@ -4,7 +4,7 @@ import UserFrame from './Frame';
 
 import { type NextServerPageProps } from 'frames.js/next/server';
 
-const UserPage = (props: NextServerPageProps) => {
+const UserPage = async (props: NextServerPageProps) => {
   return (
     <div>
       <UserFrame {...props} />

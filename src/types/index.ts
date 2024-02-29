@@ -26,3 +26,11 @@ export type State = {
   date: string[] | null;
   error: string | null;
 };
+
+export type Schedule = {
+  address: string;
+  time_zone: string;
+  max_duration: number;
+  email: string;
+  availability: string[];
+};

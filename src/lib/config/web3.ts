@@ -1,17 +1,22 @@
-import { createPublicClient, http } from 'viem';
-import { mainnet } from 'viem/chains';
+import { http, createConfig } from 'wagmi';
+import { mainnet } from 'wagmi/chains';
+
 import { normalize } from 'viem/ens';
 
 import { env } from '~/env';
 
-export const publicClient = createPublicClient({
-  chain: mainnet,
-  transport: http(env.ALCHEMY_RPC_URL),
+export const config = createConfig({
+  chains: [mainnet],
+  transports: {
+    [mainnet.id]: http(env.NEXT_PUBLIC_ALCHEMY_RPC_URL),
+  },
 });
+
+import { getEnsAddress } from '@wagmi/core';
 
 export const getAddress = async (name: string): Promise<string | null> => {
   if (name.endsWith('.eth')) {
-    const ensAddress = await publicClient.getEnsAddress({
+    const ensAddress = await getEnsAddress(config, {
       name: normalize(name),
     });
 

@@ -18,7 +18,7 @@ import { createMeeting, getUserDetails } from '~/lib/utils';
 import { reducer } from '~/app/[slug]/reducer';
 import { getButtons } from '~/app/[slug]/components/frame/buttons';
 
-import { getAddress } from '~/lib/utils/viem';
+import { getAddress } from '~/lib/config/web3';
 
 import { type FarcasterSocial, type State, PAGE } from '~/types';
 

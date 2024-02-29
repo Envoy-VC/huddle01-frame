@@ -3,9 +3,15 @@ import { fetchQuery } from '@airstack/airstack-react';
 import { API } from '@huddle01/server-sdk/api';
 
 import type { AirstackResponse, FarcasterSocial } from '~/types';
-import { ETH_ADDRESS } from '~/lib/config';
 
 import { env } from '~/env';
+
+import { type ClassValue, clsx } from 'clsx';
+import { twMerge } from 'tailwind-merge';
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
 
 export const getUserDetails = async (address: string) => {
   const query = `
@@ -121,7 +127,7 @@ export const createMeeting = async (
 
   const data = await api.createRoom({
     title: `Meeting with ${user}`,
-    hostWallets: [ETH_ADDRESS],
+    hostWallets: [''],
     startTime,
     expiryTime,
     roomType: 'VIDEO',
