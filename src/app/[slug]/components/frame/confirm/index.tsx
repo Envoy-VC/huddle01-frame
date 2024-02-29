@@ -1,7 +1,7 @@
 import React from 'react';
-import { humanizeDates } from '../../../../lib/utils';
+import { humanizeDates } from '~/lib/utils';
 
-import { type State, type FarcasterSocial } from '../../../../types';
+import { type State, type FarcasterSocial } from '~/types';
 
 interface Props {
   state: State;

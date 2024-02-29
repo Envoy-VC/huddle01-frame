@@ -14,17 +14,12 @@ const DateSelect = ({ owner }: Props) => {
       style={{ gap: '1rem' }}
     >
       <div
-        tw='flex flex-col justify-center items-center'
+        tw='flex flex-col justify-center items-center py-12'
         style={{ gap: '1rem' }}
       >
-        <div tw='text-5xl text-neutral-800'>
-          Enter a date and time for your meeting
-        </div>
+        <div tw='text-5xl text-neutral-800'>Enter a date for your meeting</div>
         <div tw='flex flex-row w-full justify-center' style={{ gap: '1rem' }}>
-          <div tw='text-5xl'>eg. 12/03/2024 15:30-16:00</div>
-        </div>
-        <div tw='flex flex-row w-full justify-center' style={{ gap: '1rem' }}>
-          <div>Format: DD/MM/YYYY HH:MM-HH:MM (UTC)</div>
+          <div tw='text-5xl'>eg. 12/03/2024</div>
         </div>
       </div>
       <div tw='flex flex-row w-full justify-end'>

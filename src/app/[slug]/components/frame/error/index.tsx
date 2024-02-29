@@ -1,6 +1,12 @@
+/* eslint-disable @next/next/no-img-element */
 import React from 'react';
+import type { State } from '~/types';
 
-const Home = () => {
+interface Props {
+  state: State;
+}
+
+const ErrorPage = ({ state }: Props) => {
   return (
     <div
       tw='flex flex-col items-center justify-center w-full h-full'
@@ -12,11 +18,11 @@ const Home = () => {
         width='500'
         height='100'
       />
-      <div tw='font-bold'>
-        Schedule Meetings on Huddle01 using Farcaster Frames
+      <div tw='font-bold text-red-500'>
+        {state.error ?? 'An error occurred'}
       </div>
     </div>
   );
 };
 
-export default Home;
+export default ErrorPage;
